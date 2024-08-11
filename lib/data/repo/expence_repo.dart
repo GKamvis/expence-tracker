@@ -22,24 +22,38 @@ class ExpenceRepository {
     var data = <String, dynamic>{};
     data['Name'] = ExpenceName;
     data['Expences'] = ExpenceAmount;
-    db.insert('expence', data);
+   await  db.insert('expence', data);
   }
-
-
 
   Future<void> deleteExpence(int Id) async {
     var db = await DbHelper.openDb();
-    db.delete('expence', where: 'Id = ?', whereArgs: [Id]);
+   await db.delete('expence', where: 'Id = ?', whereArgs: [Id]);
   }
 
+  // Future<void> updateExpence(int Id, String Name, double Expences) async {
+  //   var db = await DbHelper.openDb();
+
+  //   var data = <String, dynamic>{};
+  //   data['Name'] = Name;
+  //   data['Expences'] = Expences;
+  //   await db.update('expence', data, where: 'Id = ?', whereArgs: [Id]);
+  // }
   Future<void> updateExpence(int Id, String Name, double Expences) async {
-    var db = await DbHelper.openDb();
+  var db = await DbHelper.openDb();
 
-    var data = <String, dynamic>{};
-    data['Name'] = Name;
-    data['Expences'] = Expences;
-    db.update('expence', data, where: 'Id = ?', whereArgs: [Id]);
+  var data = <String, dynamic>{};
+  data['Name'] = Name;
+  data['Expences'] = Expences;
+
+  int count = await db.update('expence', data, where: 'Id = ?', whereArgs: [Id]);
+  
+  if (count == 0) {
+    print("Update failed, no rows affected");
+  } else {
+    print("Update successful");
   }
+}
+
 
   Future<List<ExpenceDao>> findExpence(String query) async {
     var db = await DbHelper.openDb();

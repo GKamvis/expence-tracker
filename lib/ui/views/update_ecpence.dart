@@ -28,24 +28,30 @@ class UpdateEcpence extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Center(
             child: Column(
+              
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextField(
                 controller: nameController,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   )),
+                   fillColor: Theme.of(context).colorScheme.primary,
+
                   hintText: 'Update  your Expence',
                 )),
-            TextField(
+            TextField( 
+              keyboardType: TextInputType.number,
                 controller: expencesController,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   )),
+                 fillColor: Theme.of(context).colorScheme.primary,
+
                   hintText: 'Update your expense amount',
                 )),
             ElevatedButton(

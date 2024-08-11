@@ -22,29 +22,32 @@ class AddExpence extends StatelessWidget {
           children: [
             TextField(
                 controller: tfController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
+                decoration:  InputDecoration(
+                  border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   )),
+                fillColor: Theme.of(context).colorScheme.primary,
                   hintText: 'Whats your expence ',
                 )),
             TextField(
+              
                 keyboardType: TextInputType.number,
                 controller: tfController2,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
+                decoration:  InputDecoration(
+                  border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   )),
+                  fillColor: Theme.of(context).colorScheme.primary,
                   hintText: 'How much do you spend? ',
                 )),
             ElevatedButton(
                 onPressed: () {
                   context.read<AddExpencePageCubit>().addExpence(
-                      tfController.text, double.parse(tfController2.text));
+                      tfController.text, double.parse(tfController2.text.toString()));
                   context.read<HomePageCubit>().getExpence();
-                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/home');
                 },
                 child: const Text('Submit'))
           ],

@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:myapp/data/dao/expence_dao.dart';
 import '../cubit/home_page_cubit.dart';
 import '../cubit/search icon cubit/search_cubit.dart';
+import '../cubit/theme_cubit/theme_cubit.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,6 +17,7 @@ class HomePage extends StatelessWidget {
         BlocProvider(create: (context) => SearchCubit()),
       ],
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           title: BlocBuilder<SearchCubit, bool>(
             builder: (context, showSearch) {
@@ -90,8 +92,10 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           child: ListTile(
-                            title: Text(expence.Name),
-                            subtitle: Text(expence.Expences.toString()),
+                            title: Text(expence.Name , style: TextStyle( backgroundColor: Colors.white, color: Theme.of(context).colorScheme.primary), ),
+                            subtitle: Text(expence.Expences.toString() , style: TextStyle( backgroundColor: Colors.white, color: Theme.of(context).colorScheme.primary),),
+                            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey,),
+                           // leading:  const Icon(Icons.swipe_left, color: Colors.grey,),
                           ),
                         ),
                       ),
@@ -122,12 +126,14 @@ class HomePage extends StatelessWidget {
                 child: Text("Settings"),
               ),
               ListTile(
-                leading: const Icon(Icons.dark_mode),
-                title: const Text("Dark Mode"),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
+  leading: Icon(Icons.brightness_6),
+  title: Text("Toggle Theme"),
+  onTap: () {
+    context.read<ThemeCubit>().toggleTheme();
+    Navigator.pop(context); // Close the drawer
+  },
+),
+
             ],
           ),
         ),
