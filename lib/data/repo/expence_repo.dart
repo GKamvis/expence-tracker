@@ -30,14 +30,7 @@ class ExpenceRepository {
    await db.delete('expence', where: 'Id = ?', whereArgs: [Id]);
   }
 
-  // Future<void> updateExpence(int Id, String Name, double Expences) async {
-  //   var db = await DbHelper.openDb();
 
-  //   var data = <String, dynamic>{};
-  //   data['Name'] = Name;
-  //   data['Expences'] = Expences;
-  //   await db.update('expence', data, where: 'Id = ?', whereArgs: [Id]);
-  // }
   Future<void> updateExpence(int Id, String Name, double Expences) async {
   var db = await DbHelper.openDb();
 

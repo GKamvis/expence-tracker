@@ -57,50 +57,58 @@ class HomePage extends StatelessWidget {
           child: BlocBuilder<HomePageCubit, List<ExpenceDao>>(
             builder: (context, expences) {
               if (expences.isNotEmpty) {
-                return ListView.builder(
-                  itemCount: expences.length,
-                  itemBuilder: (context, index) {
-                    var expence = expences[index];
-                    return Slidable(
-                      endActionPane: ActionPane(
-                        motion: const BehindMotion(),
-                        children: [
-                          SlidableAction(
-                            onPressed: (context) {
-                              context
-                                  .read<HomePageCubit>()
-                                  .deleteExpence(expence.Id);
-                            },
-                            icon: Icons.delete,
-                            label: "Delete",
-                            backgroundColor: Colors.red,
-                          ),
-                        ],
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/update',
-                              arguments: expence);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 219, 203, 203),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Sum: ${expences.map((e) => e.Expences).reduce((value, element) => value + element)}", style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: expences.length,
+                        itemBuilder: (context, index) {
+                          var expence = expences[index];
+                          return Slidable(
+                            endActionPane: ActionPane(
+                              motion: const BehindMotion(),
+                              children: [
+                                SlidableAction(
+                                  onPressed: (context) {
+                                    context
+                                        .read<HomePageCubit>()
+                                        .deleteExpence(expence.Id);
+                                  },
+                                  icon: Icons.delete,
+                                  label: "Delete",
+                                  backgroundColor: Theme.of(context).colorScheme.surface,
+                                ),
+                              ],
                             ),
-                          ),
-                          child: ListTile(
-                            title: Text(expence.Name , style: TextStyle( backgroundColor: Colors.white, color: Theme.of(context).colorScheme.primary), ),
-                            subtitle: Text(expence.Expences.toString() , style: TextStyle( backgroundColor: Colors.white, color: Theme.of(context).colorScheme.primary),),
-                            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey,),
-                           // leading:  const Icon(Icons.swipe_left, color: Colors.grey,),
-                          ),
-                        ),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/update',
+                                    arguments: expence);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: const Color.fromARGB(255, 219, 203, 203),
+                                  ),
+                                ),
+                                child: ListTile(
+                                  title: Text(expence.Name , style: TextStyle(  color: Theme.of(context).colorScheme.secondary), ),
+                                  subtitle: Text(expence.Expences.toString() , style: TextStyle( color: Theme.of(context).colorScheme.secondary),),
+                                  trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey,),
+                                 // leading:  const Icon(Icons.swipe_left, color: Colors.grey,),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 );
               } else {
                 return const Center(child: Text('No expenses found.'));
@@ -109,6 +117,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).colorScheme.surface,
           onPressed: () {
             Navigator.pushNamed(context, '/add').then((_) {
               context.read<HomePageCubit>().getExpence();

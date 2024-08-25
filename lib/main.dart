@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myapp/theme/dark_mode.dart';
-import 'package:myapp/theme/light_mode.dart';
 import 'package:myapp/ui/views/add_expence_page.dart';
 import 'package:myapp/ui/views/update_ecpence.dart';
 import 'ui/cubit/add_expence_page_cubit.dart';
